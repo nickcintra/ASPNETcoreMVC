@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Site01.Models.Palavra>
 @{
     Layout = null;
 }
@@ -15,7 +15,7 @@
     <div class="container">
         <a href="/palavra/cadastrar" class="btn btn-primary">Cadastrar</a>
 
-        @ViewBag.Palavras.Count
+        <span><b>Total de registros: @Model.Count</b></span>
         <table class="table">
             <thead class="table-dark">
                 <tr>
@@ -26,15 +26,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">#</th>
-                    <td >Elefante</td>
-                    <td >Fácil</td>
-                    <td>
-                        <a href="/palavra/atualizar/1" class="btn">Editar</a>
-                        <a href="/palavra/excluir/1" class="btn">Excluir</a>
-                    </td>
-                </tr>
+                @foreach (var palavra in Model)
+                {
+                    <tr>
+                        <th scope="row">@palavra.Id</th>
+                        <td>@palavra.Nome</td>
+                        <td>@palavra.Nivel</td>
+                        <td>
+                            <a href="/palavra/atualizar/@palavra.Id" class="btn">Editar</a>
+                            <a href="/palavra/excluir/@palavra.Id" class="btn">Excluir</a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

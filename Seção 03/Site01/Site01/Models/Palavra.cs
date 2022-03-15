@@ -10,6 +10,6 @@ namespace Site01.Models
         public int Id { get; set; }
         public string Nome { get; set; }
         //1-facil,2-médio, 3-difícil
-        public byte Nivel { get; set; }
+        public byte? Nivel { get; set; }
     }
 }

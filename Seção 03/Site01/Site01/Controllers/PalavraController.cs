@@ -20,40 +20,59 @@ namespace Site01.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Palavras = _db.Palavras.ToList();
-            return View();
+            var palavras = _db.Palavras.ToList();
+            return View(palavras);
         }
 
         //CRUD - Cadastrar, Consultar, Atualizar e Excluir.
         [HttpGet]
         public IActionResult Cadastrar()
         {
-            return View();
+            return View(new Palavra());
         }
 
         [HttpPost]
         public IActionResult Cadastrar([FromForm]Palavra palavra)
         {
+            if (ModelState.IsValid)
+            {
+                _db.Palavras.Add(palavra);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
             return View();
+
         }
 
         [HttpGet]
-        public IActionResult Atualizar()
+        public IActionResult Atualizar(int Id)
         {
-            return View("Cadastrar");
+            Palavra palavra = _db.Palavras.Find(Id);
+
+            return View("Cadastrar", palavra);
         }
 
         [HttpPost]
         public IActionResult Atualizar([FromForm] Palavra palavra)
         {
-            return View("Cadastrar");
+            if (ModelState.IsValid)
+            {
+                _db.Palavras.Update(palavra);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            return View("Cadastrar", palavra);
         }
 
         //Palavra/Excluir/39
         //{Controller}/{Action}/{Id?}
         public IActionResult Excluir(int Id)
         {
-            //TO DO - Excluir registro no banco
+            _db.Palavras.Remove(_db.Palavras.Find(Id));
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
     }
