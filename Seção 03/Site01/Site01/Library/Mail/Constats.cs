@@ -8,7 +8,7 @@ namespace Site01.Library.Mail
     public class Constats
     {
 
-        //POP3, IMAP - Ler nsagens de e-mail
+        //POP3, IMAP - Protocoloas que permite Ler mensagens de e-mail
         //SMTP - Enviar e-mail
         
 
