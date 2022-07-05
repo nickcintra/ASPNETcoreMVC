@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Site01.Models;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,20 @@ namespace Site01.Controllers
             {
                 if (usuario.Email == "nickcintra@gmail.com" && usuario.Senha == "cassialinda456123")
                 {
-                    return RedirectToAction("Index","Palavra");
+                    ////Add Session
+                    //HttpContext.Session.SetString("Login", "true");
+                    //HttpContext.Session.SetInt32("");
+
+                    //se quiser armazenar um objeto mais complexo como é o caso do objeto usuário é preciso  Serializar (pegar o objeto e converter pra String)
+                    //Exemplo: HttpContext.Session.SetString("Login", Serializar Object > String);
+
+                    // pacote NewtoSoft é um dos mais conhecidos do ASP.NET, da pra serializar os objetos baixando ele.
+
+                    ////Ler Session
+                    //string login = HttpContext.Session.GetString("Login");
+
+                    HttpContext.Session.SetString("Login", "true");
+                    return RedirectToAction("Index", "Palavra");
                 }
                 else
                 {
@@ -40,8 +54,13 @@ namespace Site01.Controllers
             {
                 return View();
             }
-            
-            
+        }
+
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

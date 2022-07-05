@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Site01.Database;
+using Site01.Library.Filters;
 using Site01.Models;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Site01.Controllers
 {
+    [Login]
     public class PalavraController : Controller
     {
 
@@ -39,6 +41,8 @@ namespace Site01.Controllers
                 _db.Palavras.Add(palavra);
                 _db.SaveChanges();
 
+                TempData["Mensagem"] = "A palavra '"+ palavra.Nome +"' foi cadastrada com sucesso!";
+
                 return RedirectToAction("Index");
             }
 
@@ -62,6 +66,8 @@ namespace Site01.Controllers
                 _db.Palavras.Update(palavra);
                 _db.SaveChanges();
 
+                TempData["Mensagem"] = "A palavra'" + palavra.Nome + "' foi atualizada com sucesso!";
+
                 return RedirectToAction("Index");
             }
             return View("Cadastrar", palavra);
@@ -71,8 +77,12 @@ namespace Site01.Controllers
         //{Controller}/{Action}/{Id?}
         public IActionResult Excluir(int Id)
         {
-            _db.Palavras.Remove(_db.Palavras.Find(Id));
+            Palavra palavra = _db.Palavras.Find(Id);
+            _db.Palavras.Remove(palavra );
             _db.SaveChanges();
+
+            TempData["Mensagem"] = "A palavra'" + palavra.Nome + "' foi excluida com sucesso!";
+
             return RedirectToAction("Index");
         }
     }

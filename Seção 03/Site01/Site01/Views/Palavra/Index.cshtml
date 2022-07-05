@@ -6,9 +6,24 @@
 @{
     ViewBag.Title = "Palavra - Listagem";
 }
-<a href="/palavra/cadastrar" class="btn btn-primary">Cadastrar</a>
 
-<span><b>Total de registros: @Model.Count</b></span>
+
+@if(TempData["Mensagem"] != null) { 
+    <div class="alert alert-success" role="alert">
+        @TempData["Mensagem"]
+    </div>
+}
+
+
+<div class="row">
+    <div class="col my-4">
+
+
+        <a href="/palavra/cadastrar" class="btn btn-primary">Cadastrar</a>
+
+        <span><b>Total de registros: @Model.Count</b></span>
+    </div>
+</div>
 <table class="table">
     <thead class="table-dark">
         <tr>

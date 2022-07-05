@@ -22,6 +22,9 @@ namespace Site01
                 //Providers - Bibliotecas Conexões com Bancos - SqlServer, MySQL, Oracle, Postgre, Firebird, DB2...
                 options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=site01;Integrated Security = True;");
             });
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -30,6 +33,8 @@ namespace Site01
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSession();
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();

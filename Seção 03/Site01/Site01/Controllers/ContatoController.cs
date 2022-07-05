@@ -31,7 +31,7 @@ namespace Site01.Controllers
             }
             else
             {
-                ViewBag.Contato = contato;
+                ViewBag.Contato = contato; // essa linha devolve pra tela por meio do viewbag o objeto ja preenchido anteriormente, antes de dar erro.
                 return View("Index");
             }
 
